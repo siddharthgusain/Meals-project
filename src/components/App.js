@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import calendar from '../reducers';
+import { addRecipe,removeFromCalendar } from '../actions';
+
 class App extends Component {
 
   
@@ -14,7 +15,7 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(calender){
+function mapStateToProps({ calendar,food }){
   const dayOrder=['sunday','monday','tuesday','wednesday','thrusday','friday','saturday'];
 
   return {
@@ -22,7 +23,7 @@ function mapStateToProps(calender){
       day,
       meals: Object.keys(calendar[day]).reduce((meals, meal) => {
         meals[meal] = calendar[day][meal]
-        ? calendar[day][meal]
+        ? food[calendar[day][meal]]
         : null
         return meals
       }, {})
